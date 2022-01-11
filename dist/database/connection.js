@@ -6,6 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const config_1 = __importDefault(require("../config"));
 const url = config_1.default.DB_URL;
-const sequelize = new sequelize_1.Sequelize(url);
-exports.default = sequelize;
+const connection = new sequelize_1.Sequelize(url);
+exports.default = connection;
 //# sourceMappingURL=connection.js.map

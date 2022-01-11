@@ -1,9 +1,9 @@
-import { Sequelize, Model, DataTypes } from "sequelize";
+import { Sequelize } from "sequelize";
 
 import environment from "../config";
 
 const url = environment.DB_URL as string;
 
-const sequelize = new Sequelize(url);
+const connection = new Sequelize(url);
 
-export default sequelize;
+export default connection;
