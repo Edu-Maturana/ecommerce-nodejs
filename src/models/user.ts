@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import {nanoid} from 'nanoid';
 
-import connection from "../database/connection";
+import connection from "../../database/connection";
 
 class User extends Model {
   public id!: number;
