@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import connection from "../../database/connection";
 
 class Brand extends Model {
-    public id!: number;
+    public id!: string;
     public name!: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;

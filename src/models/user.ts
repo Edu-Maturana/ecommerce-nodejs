@@ -4,7 +4,7 @@ import {nanoid} from 'nanoid';
 import connection from "../../database/connection";
 
 class User extends Model {
-  public id!: number;
+  public id!: string;
   public name!: string;
   public email!: string;
   public password!: string;
@@ -16,7 +16,7 @@ class User extends Model {
 User.init(
     {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             primaryKey: true,
             defaultValue: nanoid(),
         },
