@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import { nanoid } from "nanoid";
 
-import connection from "../../database/connection";
+import connection from "../database/connection";
 import Brand from "models/brand";
 
 class Product extends Model {

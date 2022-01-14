@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-import environment from "../config";
+import environment from "../../config";
 
 const url = environment.DB_URL as string;
 
