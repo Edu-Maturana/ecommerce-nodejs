@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import { nanoid } from "nanoid";
 
-import connection from "../../database/connection";
+import connection from "../database/connection";
 import User from "./user";
 import Product from "./product";
 
