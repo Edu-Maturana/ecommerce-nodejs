@@ -2,13 +2,13 @@ import { Model, DataTypes } from "sequelize";
 import { nanoid } from "nanoid";
 
 import connection from "../database/connection";
-import Brand from "models/brand";
+import Brand from "../models/brand";
 
 class Product extends Model {
   public id!: string;
   public name!: string;
   public description!: string;
-  public image!: string[];
+  public image!: string;
   public video!: string;
   public price!: number;
   public brand!: string;
@@ -32,9 +32,8 @@ Product.init(
       allowNull: false,
     },
     image: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: [],
     },
     video: {
       type: DataTypes.STRING,
