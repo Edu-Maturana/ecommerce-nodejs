@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { check } from "express-validator";
 
-import { createBrand, getBrands, editBrand } from "../controllers/brands";
+import { createBrand, getBrands} from "../controllers/brands";
 import validateJWT from "../helpers/validateJWT";
 import validateFields from "../middlewares/validateFields";
 import { isAdmin } from "../middlewares/dbValidators";
@@ -21,16 +21,5 @@ router.post(
 );
 
 router.get("/", getBrands);
-
-router.put(
-    "/:id",
-    [
-        validateJWT,
-        isAdmin,
-        check("name", "Name is required").not().isEmpty(),
-        validateFields,
-    ],
-    editBrand
-);
 
 export default router;

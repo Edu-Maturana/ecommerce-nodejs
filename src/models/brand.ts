@@ -20,6 +20,7 @@ Brand.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: false,
     },
   },
   {
