@@ -21,6 +21,21 @@ export const createProduct = async (req: Request, res: Response) => {
 };
 
 export const getProducts = async (req: Request, res: Response) => {
+  // brand query
+  const { brand } = req.query;
+
+  if (brand) {
+    const products = await Product.findAll({
+      where: { brand },
+      attributes: ["id", "name", "description", "price", "image", "video"],
+    });
+
+    return res.json({
+      message: "Products retrieved",
+      products,
+    });
+  }
+
   const products = await Product.findAll();
 
   res.json({
@@ -69,7 +84,7 @@ export const updateProduct = async (req: Request, res: Response) => {
     message: "Product updated",
     product,
   });
-}
+};
 
 export const deleteProduct = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -87,4 +102,4 @@ export const deleteProduct = async (req: Request, res: Response) => {
   res.json({
     message: "Product deleted",
   });
-}
+};
