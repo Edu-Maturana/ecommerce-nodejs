@@ -19,21 +19,7 @@ export const getBrands = async (req: Request, res: Response) => {
   });
 
   return res.status(200).json({
-    message: "Brands retrieved successfully",
     brands,
-  });
-};
-
-export const getBrand = async (req: Request, res: Response) => {
-  const { id } = req.params;
-
-  const brand = await Brand.findByPk(id, {
-    attributes: ["id", "name"],
-  });
-
-  return res.status(200).json({
-    message: "Brand retrieved successfully",
-    brand,
   });
 };
 
