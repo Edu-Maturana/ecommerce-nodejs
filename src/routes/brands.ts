@@ -4,7 +4,7 @@ import { check } from "express-validator";
 import { createBrand, getBrands, editBrand } from "../controllers/brands";
 import validateJWT from "../helpers/validateJWT";
 import validateFields from "../middlewares/validateFields";
-import { isAdmin } from "middlewares/dbValidators";
+import { isAdmin } from "../middlewares/dbValidators";
 
 
 const router = Router();

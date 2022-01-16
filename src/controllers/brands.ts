@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import Brand from "models/brand";
+import Brand from "../models/brand";
 
 export const createBrand = async (req: Request, res: Response) => {
   const { name } = req.body;

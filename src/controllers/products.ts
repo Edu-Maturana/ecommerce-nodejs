@@ -21,7 +21,6 @@ export const createProduct = async (req: Request, res: Response) => {
 };
 
 export const getProducts = async (req: Request, res: Response) => {
-  // brand query
   const { brand } = req.query;
 
   if (brand) {
