@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { nanoid } from "nanoid";
 
 import Product from "../models/product";
 
@@ -6,6 +7,7 @@ export const createProduct = async (req: Request, res: Response) => {
   const { name, description, price, brand, image, video } = req.body;
 
   const product = await Product.create({
+    id: nanoid(),
     name,
     description,
     image,
