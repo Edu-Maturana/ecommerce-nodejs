@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth";
 import usersRoutes from "./routes/users";
 import productsRoutes from "./routes/products";
 import brandRoutes from "./routes/brands";
+import orderRoutes from "./routes/orders";
 
 class Server {
   private app: Application;
@@ -15,6 +16,7 @@ class Server {
     users: "/api/users",
     products: "/api/products",
     brands: "/api/brands",
+    orders : "/api/orders",
   };
 
   constructor() {
@@ -45,6 +47,7 @@ class Server {
     this.app.use(this.apiPaths.users, usersRoutes);
     this.app.use(this.apiPaths.products, productsRoutes);
     this.app.use(this.apiPaths.brands, brandRoutes);
+    this.app.use(this.apiPaths.orders, orderRoutes);
   }
 
   listen() {

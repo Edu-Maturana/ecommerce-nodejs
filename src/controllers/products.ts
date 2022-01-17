@@ -22,22 +22,34 @@ export const createProduct = async (req: Request, res: Response) => {
 
 export const getProducts = async (req: Request, res: Response) => {
   const { brand } = req.query;
+  const { limit=5, skip =0 } = req.query;
 
   if (brand) {
     const products = await Product.findAll({
-      where: { brand },
-      attributes: ["id", "name", "description", "price", "image", "video"],
+      where: {
+        brand,
+      },
+      limit: Number(limit),
+      offset: Number(skip),
     });
 
-    return res.json({
-      message: "Products retrieved",
+    products.reverse();
+
+    res.json({
+      message: "Products found",
       products,
     });
   }
 
-  const products = await Product.findAll();
+  const products = await Product.findAll({
+    limit: Number(limit),
+    offset: Number(skip),
+  });
+
+  products.reverse();
 
   res.json({
+    message: "Products found",
     products,
   });
 };
