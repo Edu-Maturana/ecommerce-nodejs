@@ -1,5 +1,4 @@
 import { Model, DataTypes } from "sequelize";
-import { nanoid } from "nanoid";
 
 import connection from "../database/connection";
 import Brand from "../models/brand";
@@ -21,7 +20,6 @@ Product.init(
     id: {
       type: DataTypes.STRING,
       primaryKey: true,
-      defaultValue: nanoid(),
     },
     name: {
       type: DataTypes.STRING,

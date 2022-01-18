@@ -24,7 +24,7 @@ export const createProduct = async (req: Request, res: Response) => {
 
 export const getProducts = async (req: Request, res: Response) => {
   const { brand } = req.query;
-  const { limit=5, skip =0 } = req.query;
+  const { limit=5 } = req.query;
 
   if (brand) {
     const products = await Product.findAll({
@@ -32,7 +32,6 @@ export const getProducts = async (req: Request, res: Response) => {
         brand,
       },
       limit: Number(limit),
-      offset: Number(skip),
     });
 
     products.reverse();
@@ -45,7 +44,6 @@ export const getProducts = async (req: Request, res: Response) => {
 
   const products = await Product.findAll({
     limit: Number(limit),
-    offset: Number(skip),
   });
 
   products.reverse();
