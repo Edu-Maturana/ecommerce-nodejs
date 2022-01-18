@@ -12,8 +12,8 @@ router.post(
   [
     check("name", "Name is required").not().isEmpty(),
     check("email", "Email is required").isEmail(),
-    check("password", "Password is required - Min length is 8").isLength({
-      min: 8,
+    check("password", "Password is required - Min length is 5").isLength({
+      min: 5,
     }),
     userExists,
     validateFields,

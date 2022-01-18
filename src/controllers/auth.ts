@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 const bcrypt = require("bcrypt");
+import {nanoid} from 'nanoid';
 
 import User from "../models/user";
 import generateJWT from "../helpers/generateJWT";
@@ -10,6 +11,7 @@ export const signUp = async (req: Request, res: Response) => {
   const securePassword = await bcrypt.hash(password, 10);
 
   const user = await User.create({
+    id: nanoid(),
     name,
     email,
     password: securePassword,

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { check } from "express-validator";
 
-import { EditAddress } from "../controllers/users";
+import { EditAddress, getUser } from "../controllers/users";
 import validateJWT from "../helpers/validateJWT";
 import validateFields from "../middlewares/validateFields";
 
@@ -16,5 +16,9 @@ router.put(
     ],
     EditAddress
 )
+
+router.get("/", [
+    validateJWT,
+], getUser);
 
 export default router;

@@ -1,5 +1,4 @@
 import { Model, DataTypes } from "sequelize";
-import {nanoid} from 'nanoid';
 
 import connection from "../database/connection";
 
@@ -18,7 +17,6 @@ User.init(
         id: {
             type: DataTypes.STRING,
             primaryKey: true,
-            defaultValue: nanoid(),
         },
         name: {
             type: DataTypes.STRING,
