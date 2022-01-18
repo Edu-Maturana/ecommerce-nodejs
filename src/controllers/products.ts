@@ -36,7 +36,7 @@ export const getProducts = async (req: Request, res: Response) => {
 
     products.reverse();
 
-    res.json({
+    return res.json({
       message: "Products found",
       products,
     });
