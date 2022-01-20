@@ -26,9 +26,9 @@ User.init({
         allowNull: false,
     },
     address: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.JSON,
         allowNull: true,
-        defaultValue: "",
+        defaultValue: null,
     },
 }, {
     tableName: "users",

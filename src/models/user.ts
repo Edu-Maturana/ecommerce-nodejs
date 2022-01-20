@@ -34,7 +34,7 @@ User.init(
         address: {
             type: DataTypes.JSON,
             allowNull: true,
-            defaultValue: {},
+            defaultValue: null,
         },
     },
     {
