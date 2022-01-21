@@ -1,5 +1,4 @@
 import { Model, DataTypes } from "sequelize";
-import { nanoid } from "nanoid";
 
 import connection from "../database/connection";
 import User from "./user";
@@ -19,7 +18,6 @@ Order.init(
     id: {
       type: DataTypes.STRING,
       primaryKey: true,
-      defaultValue: nanoid(),
     },
     userId: {
       type: DataTypes.STRING,
@@ -29,6 +27,15 @@ Order.init(
       type: DataTypes.JSON,
       allowNull: false,
       defaultValue: [],
+    },
+    addressShipping: {
+      type: DataTypes.JSON,
+      allowNull: true,
+      defaultValue: null,
+      references: {
+        model: User,
+        key: "address",
+      },
     },
     total: {
       type: DataTypes.NUMBER,
@@ -42,7 +49,9 @@ Order.init(
 );
 
 // Associate the user with the order
-Order.belongsTo(User, { foreignKey: "userId" });
+Order.belongsTo(User, { foreignKey: "userId", as: "user" });
 
-// Associate the product with the order
-Order.hasMany(Product, { foreignKey: "productId" });
+// Associate products with the order
+Order.hasMany(Product, { foreignKey: "id", as: "products" });
+
+export default Order;

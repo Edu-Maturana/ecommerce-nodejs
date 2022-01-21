@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
-const nanoid_1 = require("nanoid");
 const connection_1 = __importDefault(require("../database/connection"));
 const user_1 = __importDefault(require("./user"));
 const product_1 = __importDefault(require("./product"));
@@ -14,7 +13,6 @@ Order.init({
     id: {
         type: sequelize_1.DataTypes.STRING,
         primaryKey: true,
-        defaultValue: (0, nanoid_1.nanoid)(),
     },
     userId: {
         type: sequelize_1.DataTypes.STRING,
@@ -25,6 +23,15 @@ Order.init({
         allowNull: false,
         defaultValue: [],
     },
+    addressShipping: {
+        type: sequelize_1.DataTypes.JSON,
+        allowNull: true,
+        defaultValue: null,
+        references: {
+            model: user_1.default,
+            key: "address",
+        },
+    },
     total: {
         type: sequelize_1.DataTypes.NUMBER,
         allowNull: false,
@@ -34,7 +41,8 @@ Order.init({
     sequelize: connection_1.default,
 });
 // Associate the user with the order
-Order.belongsTo(user_1.default, { foreignKey: "userId" });
-// Associate the product with the order
-Order.hasMany(product_1.default, { foreignKey: "productId" });
+Order.belongsTo(user_1.default, { foreignKey: "userId", as: "user" });
+// Associate products with the order
+Order.hasMany(product_1.default, { foreignKey: "id", as: "products" });
+exports.default = Order;
 //# sourceMappingURL=order.js.map

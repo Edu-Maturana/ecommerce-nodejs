@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUser = exports.EditAddress = void 0;
+exports.getOrders = exports.getUser = exports.EditAddress = void 0;
 const user_1 = __importDefault(require("../models/user"));
+const order_1 = __importDefault(require("../models/order"));
 const EditAddress = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { address } = req.body;
     const { id } = req.user;
@@ -34,8 +35,26 @@ const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return res.status(400).json({ message: "User not found" });
     }
     return res.status(200).json({
-        user,
+        user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            address: user.address,
+        },
     });
 });
 exports.getUser = getUser;
+const getOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.user;
+    const orders = yield order_1.default.findAll({
+        where: { userId: id },
+    });
+    if (!orders) {
+        return res.status(400).json({ message: "Orders not found" });
+    }
+    return res.status(200).json({
+        orders,
+    });
+});
+exports.getOrders = getOrders;
 //# sourceMappingURL=users.js.map

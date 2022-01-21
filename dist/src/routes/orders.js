@@ -7,6 +7,8 @@ const router = Router();
 router.post("/payment", [
     (0, express_validator_1.check)("products", "products must be an array").isArray({ min: 1, max: 10 }),
     (0, express_validator_1.check)("total", "total must be a number").isNumeric(),
-], payment_1.createPaymentIntent);
+    (0, express_validator_1.check)("addressShipping", "addressShipping must be an object").isObject(),
+    (0, express_validator_1.check)("userId", "userId must be a string").isString(),
+], payment_1.createPayment);
 exports.default = router;
 //# sourceMappingURL=orders.js.map
