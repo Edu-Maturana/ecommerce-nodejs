@@ -1,35 +1,38 @@
 import { Request, Response } from "express";
-const { Stripe } = require("stripe");
-
 import environment from "../../config";
+const stripe = require("stripe")(environment.STRIPE_SECRET);
+import { nanoid } from "nanoid";
 
-const StripeSecretKey = environment.STRIPE_SECRET as string;
+import Order from "../models/order";
 
-const stripe = new Stripe(StripeSecretKey);
-
-export const createPaymentIntent = async (req: Request, res: Response) => {
-  const { id, products, total } = req.body;
-
-  const currency = "usd";
+export const createPayment = async (req: Request, res: Response) => {
+  const { token, products, addressShipping, userId, total } = req.body;
 
   try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: total,
-      currency,
-      payment_method: id,
-      metadata: { integration_check: "accept_a_payment" },
+    const payment = await stripe.charges.create({
+      amount: total * 100,
+      currency: "usd",
+      description: `Order ${nanoid()} - User ${userId}`,
+      source: token.id,
     });
 
-    const session = {
-      paymentIntent,
-      currency,
-      products,
+    const order = await Order.create({
+      id: nanoid(),
+      userId,
+      productId: products,
+      addressShipping,
       total,
-    };
+    });
 
-    res.send(session);
+    return res.status(200).json({
+      success: true,
+      message: "Payment successful",
+      data: {
+        payment,
+        order,
+      },
+    });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error });
   }
 };

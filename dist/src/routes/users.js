@@ -17,5 +17,8 @@ router.put("/address", [
 router.get("/", [
     validateJWT_1.default,
 ], users_1.getUser);
+router.get("/orders", [
+    validateJWT_1.default,
+], users_1.getOrders);
 exports.default = router;
 //# sourceMappingURL=users.js.map

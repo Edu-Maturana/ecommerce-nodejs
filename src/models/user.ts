@@ -7,7 +7,7 @@ class User extends Model {
   public name!: string;
   public email!: string;
   public password!: string;
-  public address!: string;
+  public address!: any;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -32,9 +32,9 @@ User.init(
             allowNull: false,
         },
         address: {
-            type: DataTypes.STRING,
+            type: DataTypes.JSON,
             allowNull: true,
-            defaultValue: "",
+            defaultValue: null,
         },
     },
     {

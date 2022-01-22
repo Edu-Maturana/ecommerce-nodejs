@@ -12,33 +12,39 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPaymentIntent = void 0;
-const { Stripe } = require("stripe");
+exports.createPayment = void 0;
 const config_1 = __importDefault(require("../../config"));
-const StripeSecretKey = config_1.default.STRIPE_SECRET;
-const stripe = new Stripe(StripeSecretKey);
-const createPaymentIntent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id, products, total } = req.body;
-    const currency = "usd";
+const stripe = require("stripe")(config_1.default.STRIPE_SECRET);
+const nanoid_1 = require("nanoid");
+const order_1 = __importDefault(require("../models/order"));
+const createPayment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { token, products, addressShipping, userId, total } = req.body;
     try {
-        const paymentIntent = yield stripe.paymentIntents.create({
-            amount: total,
-            currency,
-            payment_method: id,
-            metadata: { integration_check: "accept_a_payment" },
+        const payment = yield stripe.charges.create({
+            amount: total * 100,
+            currency: "usd",
+            description: `Order ${(0, nanoid_1.nanoid)()} - User ${userId}`,
+            source: token.id,
         });
-        const session = {
-            paymentIntent,
-            currency,
-            products,
+        const order = yield order_1.default.create({
+            id: (0, nanoid_1.nanoid)(),
+            userId,
+            productId: products,
+            addressShipping,
             total,
-        };
-        res.send(session);
+        });
+        return res.status(200).json({
+            success: true,
+            message: "Payment successful",
+            data: {
+                payment,
+                order,
+            },
+        });
     }
     catch (error) {
-        console.error(error);
         res.status(500).json({ error });
     }
 });
-exports.createPaymentIntent = createPaymentIntent;
+exports.createPayment = createPayment;
 //# sourceMappingURL=payment.js.map
