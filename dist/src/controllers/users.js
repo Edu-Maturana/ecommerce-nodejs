@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getOrders = exports.getUser = exports.EditAddress = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const order_1 = __importDefault(require("../models/order"));
+const product_1 = __importDefault(require("../models/product"));
 const EditAddress = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { address } = req.body;
     const { id } = req.user;
@@ -48,6 +49,13 @@ const getOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.user;
     const orders = yield order_1.default.findAll({
         where: { userId: id },
+        include: [
+            {
+                model: product_1.default,
+                as: "products",
+                attributes: ["id", "name", "price", "image"],
+            },
+        ],
     });
     if (!orders) {
         return res.status(400).json({ message: "Orders not found" });
